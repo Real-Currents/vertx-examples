@@ -84,8 +84,8 @@ public class Runner {
     }
     // Smart cwd detection
 
-    // Based on the current directory (.) and the desired directory (exampleDir), we try to compute the vertx.cwd
-    // directory:
+    // Based on the current directory (.) and the desired directory (exampleDir), 
+    // we try to compute the vertx.cwd directory:
     try {
       // We need to use the canonical file. Without the file name is .
       File current = new File(".").getCanonicalFile();

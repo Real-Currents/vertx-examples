@@ -10,6 +10,7 @@
 .yardopts
 bin
 build
+lib
 target
 out
 test-output

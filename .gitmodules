@@ -1,0 +1,3 @@
+[submodule "postgresql-async"]
+	path = postgresql-async
+	url = git@github.com:mauricio/postgresql-async
