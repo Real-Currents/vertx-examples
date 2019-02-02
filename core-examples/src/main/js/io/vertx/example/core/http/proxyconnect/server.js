@@ -1,5 +1,12 @@
+var SelfSignedCertificate = require("vertx-js/self_signed_certificate");
 
-vertx.createHttpServer().requestHandler(function (req) {
+var certificate = SelfSignedCertificate.create();
+var serverOptions = {
+  "ssl" : true,
+  "keyCertOptions" : certificate.keyCertOptions()
+};
+
+vertx.createHttpServer(serverOptions).requestHandler(function (req) {
 
   console.log("Got request " + req.uri());
 
@@ -15,7 +22,7 @@ vertx.createHttpServer().requestHandler(function (req) {
     // Now send back a response
     req.response().setChunked(true);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0;i < 10;i++) {
       req.response().write("server-data-chunk-" + i);
     }
 

@@ -13,11 +13,11 @@ router.route().handler(function (routingContext) {
   var session = routingContext.session();
 
   var cnt = session.get("hitcount");
-  cnt = (cnt === null ? 0 : cnt) + 1;
+  cnt = ((cnt === null || cnt === undefined) ? 0 : cnt) + 1;
 
   session.put("hitcount", cnt);
 
   routingContext.response().putHeader("content-type", "text/html").end("<html><body><h1>Hitcount: " + cnt + "</h1></body></html>");
 });
 
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);

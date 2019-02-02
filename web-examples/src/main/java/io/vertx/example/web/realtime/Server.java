@@ -2,9 +2,9 @@ package io.vertx.example.web.realtime;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.bridge.BridgeEventType;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeEventType;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
@@ -46,7 +46,7 @@ public class Server extends AbstractVerticle {
     // Serve the static resources
     router.route().handler(StaticHandler.create());
 
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
 
     // Publish a message to the address "news-feed" every second
     vertx.setPeriodic(1000, t -> vertx.eventBus().publish("news-feed", "news from the server!"));

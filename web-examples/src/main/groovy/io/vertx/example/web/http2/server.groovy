@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.web.Router
+import io.vertx.ext.web.Router
 
 def image = new io.vertx.example.web.http2.Image(vertx, "coin.png")
 
@@ -19,4 +19,4 @@ vertx.createHttpServer([
     keyPath:"tls/server-key.pem",
     certPath:"tls/server-cert.pem"
   ]
-]).requestHandler(router.&accept).listen(8443)
+]).requestHandler(router).listen(8443)

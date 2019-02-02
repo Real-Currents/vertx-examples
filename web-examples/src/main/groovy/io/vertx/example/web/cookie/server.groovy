@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CookieHandler
-import io.vertx.groovy.ext.web.Cookie
-import io.vertx.groovy.ext.web.handler.StaticHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.CookieHandler
+import io.vertx.ext.web.Cookie
+import io.vertx.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
 
@@ -35,4 +35,4 @@ router.route().handler({ ctx ->
 // Serve the static resources
 router.route().handler(StaticHandler.create())
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

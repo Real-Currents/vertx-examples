@@ -1,5 +1,5 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.BodyHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.BodyHandler
 
 def router = Router.router(vertx)
 
@@ -26,4 +26,4 @@ router.post("/form").handler({ ctx ->
   ctx.response().end()
 })
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

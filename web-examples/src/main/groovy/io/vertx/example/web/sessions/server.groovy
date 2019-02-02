@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CookieHandler
-import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.web.handler.SessionHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.CookieHandler
+import io.vertx.ext.web.sstore.LocalSessionStore
+import io.vertx.ext.web.handler.SessionHandler
 
 def router = Router.router(vertx)
 
@@ -20,4 +20,4 @@ router.route().handler({ routingContext ->
   routingContext.response().putHeader("content-type", "text/html").end("<html><body><h1>Hitcount: ${cnt}</h1></body></html>")
 })
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

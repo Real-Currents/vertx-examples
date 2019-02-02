@@ -1,5 +1,12 @@
+import io.vertx.core.net.SelfSignedCertificate
 
-vertx.createHttpServer().requestHandler({ req ->
+def certificate = SelfSignedCertificate.create()
+def serverOptions = [
+  ssl:true,
+  keyCertOptions:certificate.keyCertOptions()
+]
+
+vertx.createHttpServer(serverOptions).requestHandler({ req ->
 
   println("Got request ${req.uri()}")
 
@@ -15,7 +22,7 @@ vertx.createHttpServer().requestHandler({ req ->
     // Now send back a response
     req.response().setChunked(true)
 
-    for (def i = 0;i < 10;i++) {
+    (0..<10).each { i ->
       req.response().write("server-data-chunk-${i}")
     }
 

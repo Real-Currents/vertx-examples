@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.dropwizard.MetricsService
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.sockjs.SockJSHandler
-import io.vertx.groovy.ext.web.handler.StaticHandler
+import io.vertx.ext.dropwizard.MetricsService
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.sockjs.SockJSHandler
+import io.vertx.ext.web.handler.StaticHandler
 
 def service = MetricsService.create(vertx)
 
@@ -23,7 +23,7 @@ router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options))
 router.route().handler(StaticHandler.create())
 
 def httpServer = vertx.createHttpServer()
-httpServer.requestHandler(router.&accept).listen(8080)
+httpServer.requestHandler(router).listen(8080)
 
 // Send a metrics events every second
 vertx.setPeriodic(1000, { t ->

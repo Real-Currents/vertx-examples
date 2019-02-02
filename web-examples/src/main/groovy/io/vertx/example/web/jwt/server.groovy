@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.auth.jwt.JWTAuth
-import io.vertx.groovy.ext.web.handler.JWTAuthHandler
-import io.vertx.groovy.ext.web.handler.StaticHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.auth.jwt.JWTAuth
+import io.vertx.ext.web.handler.JWTAuthHandler
+import io.vertx.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
 
@@ -21,7 +21,7 @@ router.route("/api/*").handler(JWTAuthHandler.create(jwt, "/api/newToken"))
 router.get("/api/newToken").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")
   ctx.response().end(jwt.generateToken([:], [
-    expiresInSeconds:60L
+    expiresInSeconds:60
   ]))
 })
 
@@ -34,4 +34,4 @@ router.get("/api/protected").handler({ ctx ->
 // Serve the non private static pages
 router.route().handler(StaticHandler.create())
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

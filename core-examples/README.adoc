@@ -347,9 +347,13 @@ vertx run Sender.java -cluster
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus. Depending of your configuration you may need to append to both command: ` -cp ../../../../../../../resources` in order to configure the cluster.
 
+== Future
+
+Examples using Vert.x Futures are available in the link:src/main/java/io/vertx/example/core/future[Future] directory.
+
 == Verticle examples
 
-These examples show verticles being deployed and undeployed
+These examples show verticles being deployed and undeployed.
 
 === Deploy example
 
@@ -364,6 +368,14 @@ This example shows a verticle deploying another verticle in several different wa
 
 link:src/main/java/io/vertx/example/core/verticle/deploy/DeployExample.java[Java verticle deployment example]
 link:src/main/java/io/vertx/example/core/verticle/deploy/OtherVerticle.java[The verticle that will be deployed]
+
+=== Polyglot Deploy example
+
+This example shows a verticle deploying another language verticle that depends on a NPM module:
+
+link:src/main/java/io/vertx/example/core/verticle/deploy/DeployPolyglotExample.java[Java verticle deployment example]
+link:src/main/resources/jsverticle.js[The verticle that will be deployed]
+link:src/main/resources/package.json
 
 === Asynchronous deployment example
 
@@ -492,5 +504,29 @@ You can run these examples using the `vertx` command line. For example:
 vertx run script.groovy
 ```
 
+== JSON streaming parser
 
+A simple example illustrating how to use the streaming `JsonParser` to parse a giant array of small objects.
+
+link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java[Java verticle parsing a giant JSON array in a non blocking way]
+
+== Custom ReadStream and WriteStream implementation
+
+An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example
+uses link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object,
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[ReadStream] and
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream] implementation.
+
+The protocol structure for link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object is simple as
+illustrated below:
+
+```
+Length  : uInt32
+Type    : byte ['O' for JsonObject | 'A' for JsonArray | 'B' for Buffer]
+Payload : Buffer
+```
+
+The link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] will receive the objects and write them
+back to the
+link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient].
 

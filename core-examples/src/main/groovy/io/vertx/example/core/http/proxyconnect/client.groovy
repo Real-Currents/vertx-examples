@@ -1,5 +1,8 @@
 import io.vertx.core.net.ProxyType
 def request = vertx.createHttpClient([
+  ssl:true,
+  trustAll:true,
+  verifyHost:false,
   proxyOptions:[
     type:"HTTP",
     host:"localhost",
@@ -14,7 +17,7 @@ def request = vertx.createHttpClient([
 
 request.setChunked(true)
 
-for (def i = 0;i < 10;i++) {
+(0..<10).each { i ->
   request.write("client-chunk-${i}")
 }
 
